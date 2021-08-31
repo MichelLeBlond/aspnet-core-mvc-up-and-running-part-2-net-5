@@ -1,6 +1,6 @@
-﻿using ASPCourse1.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ShoppingCart_Models;
 
 namespace ASPCourse1.Data
 {

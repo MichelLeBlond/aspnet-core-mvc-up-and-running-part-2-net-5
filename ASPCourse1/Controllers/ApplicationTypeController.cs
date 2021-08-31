@@ -1,8 +1,9 @@
 ﻿using ASPCourse1.Data;
-using ASPCourse1.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using ShoppingCart_Models;
+using ShoppingCart_Utility;
 
 namespace ASPCourse1.Controllers
 {

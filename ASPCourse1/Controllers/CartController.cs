@@ -9,15 +9,15 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using ASPCourse1.Data;
-using ASPCourse1.Models;
-using ASPCourse1.Models.ViewModels;
-using ASPCourse1.Utility;
+using ShoppingCart_Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using ShoppingCart_Models;
+using ShoppingCart_Models.ViewModels;
 
 namespace ASPCourse1.Controllers
 {

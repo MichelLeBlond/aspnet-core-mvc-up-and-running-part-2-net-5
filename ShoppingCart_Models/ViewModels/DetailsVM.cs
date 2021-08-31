@@ -1,4 +1,4 @@
-﻿namespace ASPCourse1.Models.ViewModels
+﻿namespace ShoppingCart_Models.ViewModels
 {
     public class DetailsVM
     {

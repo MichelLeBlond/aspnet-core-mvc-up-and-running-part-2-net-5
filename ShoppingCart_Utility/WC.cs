@@ -1,4 +1,4 @@
-﻿namespace ASPCourse1
+﻿namespace ShoppingCart_Utility
 {
     public static class WC
     {

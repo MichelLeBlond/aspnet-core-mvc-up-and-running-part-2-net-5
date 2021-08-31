@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ASPCourse1.Data;
-using ASPCourse1.Models;
-using ASPCourse1.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ShoppingCart_Models;
+using ShoppingCart_Models.ViewModels;
+using ShoppingCart_Utility;
 
 namespace ASPCourse1.Controllers
 {

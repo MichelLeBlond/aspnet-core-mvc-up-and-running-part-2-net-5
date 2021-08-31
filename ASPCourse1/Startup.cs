@@ -1,6 +1,6 @@
 using System;
 using ASPCourse1.Data;
-using ASPCourse1.Utility;
+using ShoppingCart_Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

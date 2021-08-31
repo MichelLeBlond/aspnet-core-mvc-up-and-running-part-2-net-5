@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 
-namespace ASPCourse1.Utility
+namespace ShoppingCart_Utility
 {
     public class EmailSender : IEmailSender
     {

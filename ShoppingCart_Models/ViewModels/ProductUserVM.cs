@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace ASPCourse1.Models.ViewModels
+namespace ShoppingCart_Models.ViewModels
 {
     public class ProductUserVM
     {

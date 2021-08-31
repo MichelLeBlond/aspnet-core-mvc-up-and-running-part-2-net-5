@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace ASPCourse1.Models
+namespace ShoppingCart_Models
 {
     public class Category
     {

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using ASPCourse1.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
 using ASPCourse1.Data;
-using ASPCourse1.Models.ViewModels;
-using ASPCourse1.Utility;
+using ShoppingCart_Utility;
 using Microsoft.EntityFrameworkCore;
+using ShoppingCart_Models;
+using ShoppingCart_Models.ViewModels;
 
 namespace ASPCourse1.Controllers
 {

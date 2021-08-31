@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ASPCourse1.Models.ViewModels
+namespace ShoppingCart_Models.ViewModels
 {
     public class ProductVM
     {
