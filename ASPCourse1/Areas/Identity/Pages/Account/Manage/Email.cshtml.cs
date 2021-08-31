@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace ASPCourse1.Areas.Identity.Pages.Account.Manage
+namespace ShoppingCart.Areas.Identity.Pages.Account.Manage
 {
     public partial class EmailModel : PageModel
     {

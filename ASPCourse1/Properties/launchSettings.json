@@ -16,7 +16,7 @@
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation"
       }
     },
-    "ASPCourse1": {
+    "ShoppingCart": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

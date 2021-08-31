@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ASPCourse1.Areas.Identity.Pages.Account
+namespace ShoppingCart.Areas.Identity.Pages.Account
 {
     public class AccessDeniedModel : PageModel
     {

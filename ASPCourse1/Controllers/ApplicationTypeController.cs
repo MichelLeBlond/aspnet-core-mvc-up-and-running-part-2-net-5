@@ -1,11 +1,12 @@
-﻿using ASPCourse1.Data;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using ShoppingCart_DataAccess.Data;
 using ShoppingCart_Models;
 using ShoppingCart_Utility;
 
-namespace ASPCourse1.Controllers
+namespace ShoppingCart.Controllers
 {
     [Authorize(Roles = WC.AdminRole)]
     public class ApplicationTypeController : Controller

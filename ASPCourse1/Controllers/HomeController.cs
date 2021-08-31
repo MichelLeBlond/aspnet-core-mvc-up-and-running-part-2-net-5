@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
-using ASPCourse1.Data;
+
 using ShoppingCart_Utility;
 using Microsoft.EntityFrameworkCore;
+using ShoppingCart_DataAccess.Data;
 using ShoppingCart_Models;
 using ShoppingCart_Models.ViewModels;
 
-namespace ASPCourse1.Controllers
+namespace ShoppingCart.Controllers
 {
     public class HomeController : Controller
     {
@@ -34,11 +35,11 @@ namespace ASPCourse1.Controllers
         }
         public IActionResult Details(int id)
         {
-            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
-            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart) != null
-                && HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart).Count() > 0)
+            List<ShoppingCart_Models.ShoppingCart> shoppingCartList = new List<ShoppingCart_Models.ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart) != null
+                && HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart).Count() > 0)
             {
-                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart);
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart);
             }
 
 
@@ -65,24 +66,24 @@ namespace ASPCourse1.Controllers
         [HttpPost, ActionName("Details")]
         public IActionResult DetailsPost(int id)
         {
-            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
-            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart) != null
-                && HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart).Count() > 0)
+            List<ShoppingCart_Models.ShoppingCart> shoppingCartList = new List<ShoppingCart_Models.ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart) != null
+                && HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart).Count() > 0)
             {
-                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart);
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart);
             }
-            shoppingCartList.Add(new ShoppingCart { ProductId = id });
+            shoppingCartList.Add(new ShoppingCart_Models.ShoppingCart { ProductId = id });
             HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult RemoveFromCart(int id)
         {
-            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
-            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart) != null
-                && HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart).Count() > 0)
+            List<ShoppingCart_Models.ShoppingCart> shoppingCartList = new List<ShoppingCart_Models.ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart) != null
+                && HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart).Count() > 0)
             {
-                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart);
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart);
             }
 
             var itemToRemove = shoppingCartList.SingleOrDefault(r => r.ProductId == id);

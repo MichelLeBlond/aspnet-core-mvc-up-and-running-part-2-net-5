@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ShoppingCart_Models;
 
-namespace ASPCourse1.Data
+namespace ShoppingCart_DataAccess.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

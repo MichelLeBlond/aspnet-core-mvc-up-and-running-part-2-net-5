@@ -8,7 +8,6 @@ using System.Net.WebSockets;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using ASPCourse1.Data;
 using ShoppingCart_Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -16,10 +15,11 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using ShoppingCart_DataAccess.Data;
 using ShoppingCart_Models;
 using ShoppingCart_Models.ViewModels;
 
-namespace ASPCourse1.Controllers
+namespace ShoppingCart.Controllers
 {
     [Authorize]
     public class CartController : Controller
@@ -40,12 +40,12 @@ namespace ASPCourse1.Controllers
 
         public IActionResult Index()
         {
-            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
-            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart) != null &&
-                HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart).Count() > 0)
+            List<ShoppingCart_Models.ShoppingCart> shoppingCartList = new List<ShoppingCart_Models.ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart) != null &&
+                HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart).Count() > 0)
             {
                 //Session exists
-                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart);
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart);
             }
 
             List<int> prodInCart = shoppingCartList.Select(i => i.ProductId).ToList();
@@ -67,12 +67,12 @@ namespace ASPCourse1.Controllers
         {
             var claimsIdentity = (ClaimsIdentity) User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
-            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart) != null &&
-                HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart).Count() > 0)
+            List<ShoppingCart_Models.ShoppingCart> shoppingCartList = new List<ShoppingCart_Models.ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart) != null &&
+                HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart).Count() > 0)
             {
                 //Session exists
-                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart);
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart);
             }
 
             List<int> prodInCart = shoppingCartList.Select(i => i.ProductId).ToList();
@@ -134,12 +134,12 @@ namespace ASPCourse1.Controllers
 
         public IActionResult Remove(int id)
         {
-            List<ShoppingCart> shoppingCartList = new List<ShoppingCart>();
-            if (HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart) != null &&
-                HttpContext.Session.Get<IEnumerable<ShoppingCart>>(WC.SessionCart).Count() > 0)
+            List<ShoppingCart_Models.ShoppingCart> shoppingCartList = new List<ShoppingCart_Models.ShoppingCart>();
+            if (HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart) != null &&
+                HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart).Count() > 0)
             {
                 //Session exists
-                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart);
+                shoppingCartList = HttpContext.Session.Get<List<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart);
             }
 
             shoppingCartList.Remove(shoppingCartList.FirstOrDefault(u => u.ProductId == id));

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-namespace ASPCourse1.Areas.Identity.Pages.Account.Manage
+namespace ShoppingCart.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {

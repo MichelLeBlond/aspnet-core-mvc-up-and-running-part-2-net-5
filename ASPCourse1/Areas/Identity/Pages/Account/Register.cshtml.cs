@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 using ShoppingCart_Models;
 using ShoppingCart_Utility;
 
-namespace ASPCourse1.Areas.Identity.Pages.Account
+namespace ShoppingCart.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class RegisterModel : PageModel

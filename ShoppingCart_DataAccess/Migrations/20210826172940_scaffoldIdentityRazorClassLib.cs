@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ASPCourse1.Migrations
+namespace ShoppingCart_DataAccess.Migrations
 {
     public partial class scaffoldIdentityRazorClassLib : Migration
     {

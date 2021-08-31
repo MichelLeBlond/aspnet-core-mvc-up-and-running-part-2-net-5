@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace ASPCourse1.Areas.Identity.Pages.Account.Manage
+namespace ShoppingCart.Areas.Identity.Pages.Account.Manage
 {
     public class EnableAuthenticatorModel : PageModel
     {
@@ -148,7 +148,7 @@ namespace ASPCourse1.Areas.Identity.Pages.Account.Manage
         {
             return string.Format(
                 AuthenticatorUriFormat,
-                _urlEncoder.Encode("ASPCourse1"),
+                _urlEncoder.Encode("ShoppingCart"),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }

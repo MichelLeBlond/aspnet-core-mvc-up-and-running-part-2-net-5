@@ -1,5 +1,5 @@
 ﻿using System;
-using ASPCourse1.Data;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: HostingStartup(typeof(ASPCourse1.Areas.Identity.IdentityHostingStartup))]
-namespace ASPCourse1.Areas.Identity
+[assembly: HostingStartup(typeof(ShoppingCart.Areas.Identity.IdentityHostingStartup))]
+namespace ShoppingCart.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

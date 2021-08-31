@@ -1,5 +1,5 @@
 using System;
-using ASPCourse1.Data;
+
 using ShoppingCart_Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,8 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShoppingCart_DataAccess.Data;
 
-namespace ASPCourse1
+namespace ShoppingCart
 {
     public class Startup
     {

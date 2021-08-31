@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ASPCourse1.Data;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ShoppingCart_DataAccess.Data;
 using ShoppingCart_Models;
 using ShoppingCart_Models.ViewModels;
 using ShoppingCart_Utility;
 
-namespace ASPCourse1.Controllers
+namespace ShoppingCart.Controllers
 {
    [Authorize(Roles= WC.AdminRole)]
     public class ProductController : Controller
