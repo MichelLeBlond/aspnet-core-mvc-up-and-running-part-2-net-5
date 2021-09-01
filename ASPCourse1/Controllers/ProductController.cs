@@ -13,28 +13,28 @@ using ShoppingCart_DataAccess.Data;
 using ShoppingCart_Models;
 using ShoppingCart_Models.ViewModels;
 using ShoppingCart_Utility;
-
+using ShoppingCart_DataAccess.Repository.IRepository;
 namespace ShoppingCart.Controllers
 {
    [Authorize(Roles= WC.AdminRole)]
     public class ProductController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IProductRepository _prodRepo;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ProductController(ApplicationDbContext db, IWebHostEnvironment webHostEnvironment)
+        public ProductController(IProductRepository prodRepo, IWebHostEnvironment webHostEnvironment)
         {
-            _db = db;
+            _prodRepo = prodRepo;
             _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Product> objList = _db.Product.Include(u => u.Category).Include(u => u.ApplicationType);
+            IEnumerable<Product> objList = _prodRepo.GetAll(includeProperties:"Category,ApplicationType");
 //foreach (var obj in objList)
                 //      {
-        //        obj.Category = _db.Category.FirstOrDefault(u => u.Id == obj.CategoryId);
-         //       obj.ApplicationType = _db.ApplicationType.FirstOrDefault(u => u.Id == obj.ApplicationTypeId);
+        //        obj.Category = _prodRepo.Category.FirstOrDefault(u => u.Id == obj.CategoryId);
+         //       obj.ApplicationType = _prodRepo.ApplicationType.FirstOrDefault(u => u.Id == obj.ApplicationTypeId);
          //   } 
             return View(objList);
         }
@@ -42,28 +42,28 @@ namespace ShoppingCart.Controllers
         // Get - UPSERT
         public IActionResult Upsert(int? id)
         {
-           
-            var productVM = new ProductVM
+
+            ProductVM productVM = new ProductVM()
             {
                 Product = new Product(),
-                CategorySelectList = _db.Category.Select(i => new SelectListItem
-                {
-                    Text = i.Name,
-                    Value = i.Id.ToString()
-                }),
-                ApplicationTypeSelectList = _db.ApplicationType.Select(i => new SelectListItem
-                {
-                    Text = i.Name,
-                    Value = i.Id.ToString()
-                })
-
+                CategorySelectList = _prodRepo.GetAllDropdownList(WC.CategoryName),
+                ApplicationTypeSelectList = _prodRepo.GetAllDropdownList(WC.ApplicationTypeName),
             };
-            if (id == null) return View(productVM);
 
-            productVM.Product = _db.Product.Find(id);
-            if (productVM.Product == null) return NotFound();
-
-            return View(productVM);
+            if (id == null)
+            {
+                //this is for create
+                return View(productVM);
+            }
+            else
+            {
+                productVM.Product = _prodRepo.Find(id.GetValueOrDefault());
+                if (productVM.Product == null)
+                {
+                    return NotFound();
+                }
+                return View(productVM);
+            }
         }
 
         // Post - Upsert
@@ -89,12 +89,12 @@ namespace ShoppingCart.Controllers
                     }
 
                     productVM.Product.Image = fileName + extension;
-                    _db.Product.Add(productVM.Product);
+                    _prodRepo.Add(productVM.Product);
                 }
 
                 else //Updating
                 {
-                    var objFormDb = _db.Product.AsNoTracking().FirstOrDefault(u => u.Id == productVM.Product.Id);
+                    var objFormDb = _prodRepo.FirstOrDefault(u => u.Id == productVM.Product.Id,isTracking:false);
                     if (files.Count > 0)
                     {
                         var upload = webRootPath + WC.ImagePath;
@@ -118,24 +118,16 @@ namespace ShoppingCart.Controllers
                         productVM.Product.Image = objFormDb.Image;
                     }
 
-                    _db.Product.Update(productVM.Product);
+                    _prodRepo.Update(productVM.Product);
 
                 }
 
-                _db.SaveChanges();
+                _prodRepo.Save();
                 return RedirectToAction("Index");
             }
 
-            productVM.CategorySelectList = _db.Category.Select(i => new SelectListItem
-            {
-                Text = i.Name,
-                Value = i.Id.ToString()
-            });
-            productVM.ApplicationTypeSelectList = _db.ApplicationType.Select(i => new SelectListItem
-            {
-                Text = i.Name,
-                Value = i.Id.ToString()
-            });
+            productVM.CategorySelectList = _prodRepo.GetAllDropdownList(WC.CategoryName);
+            productVM.ApplicationTypeSelectList = _prodRepo.GetAllDropdownList(WC.ApplicationTypeName);
 
             return View(productVM);
         }
@@ -149,8 +141,8 @@ namespace ShoppingCart.Controllers
                 return NotFound();
             }
 
-            Product product = _db.Product.Include(u => u.Category).Include(u=>u.ApplicationType).FirstOrDefault(u => u.Id == id);
-          //  product.Category = _db.Category.Find(product.CategoryId);
+            Product product = _prodRepo.FirstOrDefault(u => u.Id == id, includeProperties: "Category,ApplicationType");
+            //  product.Category = _prodRepo.Category.Find(product.CategoryId);
             if (product == null)
             {
                 return NotFound();
@@ -163,7 +155,7 @@ namespace ShoppingCart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var obj = _db.Product.Find(id);
+            var obj = _prodRepo.Find(id.GetValueOrDefault());
             if (obj == null)
             {
                 return NotFound();
@@ -177,8 +169,8 @@ namespace ShoppingCart.Controllers
                 System.IO.File.Delete(oldFile);
             }
 
-            _db.Product.Remove(obj);
-            _db.SaveChanges();
+            _prodRepo.Remove(obj);
+            _prodRepo.Save();
             return RedirectToAction("Index");
         }
     }

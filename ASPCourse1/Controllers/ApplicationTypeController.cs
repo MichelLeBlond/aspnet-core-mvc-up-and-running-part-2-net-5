@@ -5,22 +5,23 @@ using Microsoft.AspNetCore.Authorization;
 using ShoppingCart_DataAccess.Data;
 using ShoppingCart_Models;
 using ShoppingCart_Utility;
+using ShoppingCart_DataAccess.Repository.IRepository;
 
 namespace ShoppingCart.Controllers
 {
     [Authorize(Roles = WC.AdminRole)]
     public class ApplicationTypeController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IApplicationTypeRepository _appTypeRepo;
 
-        public ApplicationTypeController(ApplicationDbContext db)
+        public ApplicationTypeController(IApplicationTypeRepository appTypeRepo)
         {
-            _db = db;
+            _appTypeRepo = appTypeRepo;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<ApplicationType> objLIst = _db.ApplicationType;
+            IEnumerable<ApplicationType> objLIst = _appTypeRepo.GetAll();
             return View(objLIst);
         }
         // Get - Create
@@ -35,8 +36,8 @@ namespace ShoppingCart.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.ApplicationType.Add(obj);
-                _db.SaveChanges();
+                _appTypeRepo.Add(obj);
+                _appTypeRepo.Save();
                 return RedirectToAction("Index");
             }
 
@@ -50,7 +51,7 @@ namespace ShoppingCart.Controllers
                 return NotFound();
             }
 
-            var obj = _db.ApplicationType.Find(id);
+            var obj = _appTypeRepo.Find(id.GetValueOrDefault());
             if (obj == null)
             {
                 return NotFound();
@@ -65,8 +66,8 @@ namespace ShoppingCart.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.ApplicationType.Update(obj);
-                _db.SaveChanges();
+                _appTypeRepo.Update(obj);
+                _appTypeRepo.Save();
                 return RedirectToAction("Index");
             }
 
@@ -82,7 +83,7 @@ namespace ShoppingCart.Controllers
                 return NotFound();
             }
 
-            var obj = _db.ApplicationType.Find(id);
+            var obj = _appTypeRepo.Find(id.GetValueOrDefault());
             if (obj == null)
             {
                 return NotFound();
@@ -95,14 +96,14 @@ namespace ShoppingCart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var obj = _db.ApplicationType.Find(id);
+            var obj = _appTypeRepo.Find(id.GetValueOrDefault());
             if (obj == null)
             {
                 return NotFound();
             }
 
-            _db.ApplicationType.Remove(obj);
-            _db.SaveChanges();
+            _appTypeRepo.Remove(obj);
+            _appTypeRepo.Save();
             return RedirectToAction("Index");
 
         }

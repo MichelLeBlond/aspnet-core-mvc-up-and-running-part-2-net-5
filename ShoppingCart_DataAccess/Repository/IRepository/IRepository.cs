@@ -16,5 +16,13 @@ namespace ShoppingCart_DataAccess.Repository.IRepository
            string includeProperties = null,
            bool isTracking = true
            );
+        T FirstOrDefault(
+           Expression<Func<T, bool>> filter = null,
+           string includeProperties = null,
+           bool isTracking = true
+           );
+        void Add(T entity);
+        void Remove(T entity);
+        void Save();
     }
 }

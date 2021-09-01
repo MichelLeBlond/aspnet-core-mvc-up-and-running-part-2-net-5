@@ -4,22 +4,23 @@ using Microsoft.AspNetCore.Authorization;
 using ShoppingCart_DataAccess.Data;
 using ShoppingCart_Models;
 using ShoppingCart_Utility;
+using ShoppingCart_DataAccess.Repository.IRepository;
 
 namespace ShoppingCart.Controllers
 {
     [Authorize(Roles = WC.AdminRole)]
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ICategoryRepository _catRepo;
 
-        public CategoryController(ApplicationDbContext db)
+        public CategoryController(ICategoryRepository catRepo)
         {
-            _db = db;
+            _catRepo = catRepo;
         }
 
         public IActionResult Index()
         {
-            IEnumerable<Category> objLIst = _db.Category;
+            IEnumerable<Category> objLIst = _catRepo.GetAll();
             return View(objLIst);
         }
         // Get - Create
@@ -34,8 +35,8 @@ namespace ShoppingCart.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Category.Add(obj);
-                _db.SaveChanges();
+                _catRepo.Add(obj);
+                _catRepo.Save();
                 return RedirectToAction("Index");
             }
 
@@ -49,7 +50,7 @@ namespace ShoppingCart.Controllers
                 return NotFound();
             }
 
-            var obj = _db.Category.Find(id);
+            var obj = _catRepo.Find(id.GetValueOrDefault());
             if (obj == null)
             {
                 return NotFound();
@@ -64,8 +65,8 @@ namespace ShoppingCart.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Category.Update(obj);
-                _db.SaveChanges();
+                _catRepo.Update(obj);
+                _catRepo.Save();
                 return RedirectToAction("Index");
             }
 
@@ -81,7 +82,7 @@ namespace ShoppingCart.Controllers
                 return NotFound();
             }
 
-            var obj = _db.Category.Find(id);
+            var obj = _catRepo.Find(id.GetValueOrDefault());
             if (obj == null)
             {
                 return NotFound();
@@ -94,14 +95,14 @@ namespace ShoppingCart.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeletePost(int? id)
         {
-            var obj = _db.Category.Find(id);
+            var obj = _catRepo.Find(id.GetValueOrDefault());
             if (obj == null)
             {
                 return NotFound();
             }
 
-            _db.Category.Remove(obj);
-            _db.SaveChanges();
+            _catRepo.Remove(obj);
+            _catRepo.Save();
             return RedirectToAction("Index");
 
         }

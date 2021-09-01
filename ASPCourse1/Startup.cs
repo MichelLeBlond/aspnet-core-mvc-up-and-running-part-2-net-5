@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ShoppingCart_DataAccess.Data;
+using ShoppingCart_DataAccess.Repository;
+using ShoppingCart_DataAccess.Repository.IRepository;
 
 namespace ShoppingCart
 {
@@ -40,6 +42,9 @@ namespace ShoppingCart
 
 
             });
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IApplicationTypeRepository, ApplicationTypeRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             services.AddControllersWithViews();
         }
