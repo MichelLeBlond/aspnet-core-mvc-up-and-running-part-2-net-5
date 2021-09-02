@@ -11,11 +11,12 @@ namespace ShoppingCart_Models
    public  class InquiryHeader
     {
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
         public string ApplicationUserId { get; set; }
         [ForeignKey("ApplicationUserId")]
         public ApplicationUser ApplicationUser { get; set; }
-        [Required]
+        public DateTime InquiryDate { get; set; }
+            [Required]
         public string PhoneNumber { get; set; }
         [Required]
         public string FullName { get; set; }

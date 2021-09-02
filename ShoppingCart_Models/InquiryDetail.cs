@@ -9,17 +9,21 @@ using System.Threading.Tasks;
 
 namespace ShoppingCart_Models
 {
-  public  class InquiryDetail
+    public class InquiryDetail
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
-        public int InqueryHeaderId { get; set; }
-        [ForeignKey("InqueryHeaderId")]
+        public int InquiryHeaderId { get; set; }
+        [ForeignKey("InquiryHeaderId")]
         public InquiryHeader InquiryHeader { get; set; }
+
         [Required]
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
-        public InquiryHeader Product { get; set; }
+        public Product Product { get; set; }
+
+
     }
 }
