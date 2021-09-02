@@ -49,7 +49,7 @@ namespace ShoppingCart.Controllers
 
             DetailsVM DetailsVM = new DetailsVM()
             {
-                Product = _prodRepo.FirstOrDefault(includeProperties: "Category,ApplicationType"),
+                Product = _prodRepo.FirstOrDefault(u => u.Id == id, includeProperties: "Category,ApplicationType"),
                 ExistsInCart = false
             };
 
