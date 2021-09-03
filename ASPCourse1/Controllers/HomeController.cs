@@ -66,7 +66,7 @@ namespace ShoppingCart.Controllers
         }
 
         [HttpPost, ActionName("Details")]
-        public IActionResult DetailsPost(int id)
+        public IActionResult DetailsPost(int id, DetailsVM detailsVM)
         {
             List<ShoppingCart_Models.ShoppingCart> shoppingCartList = new List<ShoppingCart_Models.ShoppingCart>();
             if (HttpContext.Session.Get<IEnumerable<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart) != null
@@ -74,7 +74,7 @@ namespace ShoppingCart.Controllers
             {
                 shoppingCartList = HttpContext.Session.Get<List<ShoppingCart_Models.ShoppingCart>>(WC.SessionCart);
             }
-            shoppingCartList.Add(new ShoppingCart_Models.ShoppingCart { ProductId = id });
+            shoppingCartList.Add(new ShoppingCart_Models.ShoppingCart { ProductId = id,SqFt=detailsVM.Product.TempSqFt });
             HttpContext.Session.Set(WC.SessionCart, shoppingCartList);
             return RedirectToAction(nameof(Index));
         }
