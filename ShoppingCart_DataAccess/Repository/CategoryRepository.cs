@@ -21,9 +21,9 @@ namespace ShoppingCart_DataAccess.Repository
             var objFromDb = base.FirstOrDefault(u => u.Id == obj.Id);
             if (objFromDb != null)
             {
-                objFromDb.Name = obj.Name;
-                objFromDb.DisplayOrder = obj.DisplayOrder;
+             _db.Category.Update(obj);
             }
+
         }
     }
 }
