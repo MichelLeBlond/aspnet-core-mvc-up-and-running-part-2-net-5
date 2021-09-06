@@ -47,6 +47,8 @@ namespace ShoppingCart
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IInquiryDetailRepository, InquiryDetailRepository>();
             services.AddScoped<IInquiryHeaderRepository, InquiryHeaderRepository>();
+            services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
+            services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 
 
