@@ -19,6 +19,7 @@ using ShoppingCart_DataAccess.Data;
 using ShoppingCart_Models;
 using ShoppingCart_Models.ViewModels;
 using ShoppingCart_DataAccess.Repository.IRepository;
+using ShoppingCart_Utility.BrainTree;
 
 namespace ShoppingCart.Controllers
 {
@@ -34,13 +35,14 @@ namespace ShoppingCart.Controllers
         private readonly IOrderHeaderRepository _orderHRepo;
         private readonly IOrderDetailRepository _orderDRepo;
         private readonly IApplicationUserRepository _userRepo;
+        private readonly IBrainTreeGate _brain;
 
 
 
         [BindProperty]
         public ProductUserVM ProductUserVM { get; set; }
 
-        public CartController( IInquiryDetailRepository inqDRepo, IInquiryHeaderRepository inqHRepo, IProductRepository prodRepo, IApplicationUserRepository userRepo, IOrderHeaderRepository orderHRepo, IOrderDetailRepository orderDRepo, IWebHostEnvironment webHostEnvironment, IEmailSender emailSender)
+        public CartController( IInquiryDetailRepository inqDRepo, IInquiryHeaderRepository inqHRepo, IProductRepository prodRepo, IApplicationUserRepository userRepo, IOrderHeaderRepository orderHRepo, IOrderDetailRepository orderDRepo, IWebHostEnvironment webHostEnvironment, IEmailSender emailSender, IBrainTreeGate brain)
         {
             
             _inqHRepo = inqHRepo;
@@ -51,6 +53,7 @@ namespace ShoppingCart.Controllers
             _orderHRepo = orderHRepo;
             _webHostEnvironment = webHostEnvironment;
             _emailSender = emailSender;
+            _brain = brain;
         }
 
 
@@ -116,7 +119,9 @@ namespace ShoppingCart.Controllers
                 {
                     applicationUser = new ApplicationUser();
                 }
-
+                var gateway = _brain.CreateGateway();
+                var clientToken = gateway.ClientToken.Generate();
+                ViewBag.clientToken = clientToken;
               
 
             }

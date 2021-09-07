@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using ShoppingCart_DataAccess.Data;
 using ShoppingCart_DataAccess.Repository;
 using ShoppingCart_DataAccess.Repository.IRepository;
+using ShoppingCart_Utility.BrainTree;
 
 namespace ShoppingCart
 {
@@ -42,6 +43,8 @@ namespace ShoppingCart
 
 
             });
+            services.Configure<BrainTreeSettings>(Configuration.GetSection("BrainTree"));
+            services.AddSingleton<IBrainTreeGate, BrainTreeGate>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IApplicationTypeRepository, ApplicationTypeRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
