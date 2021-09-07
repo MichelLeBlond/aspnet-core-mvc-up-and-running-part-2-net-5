@@ -20,6 +20,8 @@ using ShoppingCart_Models;
 using ShoppingCart_Models.ViewModels;
 using ShoppingCart_DataAccess.Repository.IRepository;
 using ShoppingCart_Utility.BrainTree;
+using Microsoft.AspNetCore.Http;
+using Braintree;
 
 namespace ShoppingCart.Controllers
 {
@@ -166,7 +168,7 @@ namespace ShoppingCart.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ActionName("Summary")]
-        public async Task<IActionResult> SummaryPost(ProductUserVM ProductUserVM)
+        public async Task<IActionResult> SummaryPost(IFormCollection collection, ProductUserVM ProductUserVM)
         {
 
 
@@ -208,6 +210,32 @@ namespace ShoppingCart.Controllers
                 }
                 _orderDRepo.Save();
 
+                string nonceFromTheClient = collection["payment_method_nonce"];
+
+                var request = new TransactionRequest
+                {
+                    Amount = Convert.ToDecimal(orderHeader.FinalOrderTotal),
+                    PaymentMethodNonce = nonceFromTheClient,
+                    OrderId = orderHeader.Id.ToString(),
+                    Options = new TransactionOptionsRequest
+                    {
+                        SubmitForSettlement = true
+                    }
+                };
+
+                var gateway = _brain.GetGateway();
+                Result<Transaction> result = gateway.Transaction.Sale(request);
+
+                if (result.Target.ProcessorResponseText == "Approved")
+                {
+                    orderHeader.TransactionId = result.Target.Id;
+                    orderHeader.OrderStatus = WC.StatusApproved;
+                }
+                else
+                {
+                    orderHeader.OrderStatus = WC.StatusCancelled;
+                }
+                _orderHRepo.Save();
                 return RedirectToAction(nameof(InquiryConfirmation), new { id = orderHeader.Id });
 
 
