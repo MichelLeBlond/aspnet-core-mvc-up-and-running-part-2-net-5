@@ -34,6 +34,10 @@ namespace ShoppingCart.Controllers
         private readonly IBrainTreeGate _brain;
 
 
+        [BindProperty]
+        public OrderVM OrderVM { get; set; }
+
+
         public OrderController(IOrderHeaderRepository orderHRepo, IOrderDetailRepository orderDRepo, IBrainTreeGate brain)
         {
 
@@ -72,6 +76,17 @@ namespace ShoppingCart.Controllers
             }
 
             return View(orderListVM);
+        }
+
+        public IActionResult Details(int id)
+        {
+            OrderVM = new OrderVM()
+            {
+                OrderHeader = _orderHRepo.FirstOrDefault(u => u.Id == id),
+                OrderDetail = _orderDRepo.GetAll(o => o.OrderHeaderId == id, includeProperties: "Product")
+            };
+
+            return View(OrderVM);
         }
     }
 }
