@@ -1,8 +1,11 @@
-﻿namespace ShoppingCart_Utility
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
+namespace ShoppingCart_Utility
 {
     public static class WC
     {
-        public const string ImagePath =@"\Images\Product\";
+        public const string ImagePath = @"\Images\Product\";
         public const string SessionCart = "ShoppingCartSession";
         public const string AdminRole = "Admin";
         public const string CustomerRole = "Customer";
@@ -21,5 +24,10 @@
         public const string StatusShipped = "Shipped";
         public const string StatusCancelled = "Cancelled";
         public const string StatusRefunded = "Refunded";
+
+        public static readonly IEnumerable<string> listStatus = new ReadOnlyCollection<string>(
+            new List<string>
+            { StatusPending, StatusApproved, StatusInProcess, StatusShipped, StatusCancelled, StatusRefunded });
     }
-}
+    }
+

@@ -10,8 +10,7 @@
                         Order Summary
                     </div>
                     <div class="col-6 text-right">
-
-                        <a asp-action="Index" asp-controller="Cart" class="btn btn-outline-info btn-sm">Back to Cart</a>
+                        <a class="btn btn-outline-info btn-sm" asp-action="Index">Back to Cart</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -29,8 +28,6 @@
                                     </div>
                                     <div class="col-9">
                                         <input asp-for="ApplicationUser.FullName" type="text" class="form-control" />
-                                        <span asp-validation-for="ApplicationUser.FullName" class="text-danger"></span>
-
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -38,8 +35,7 @@
                                         <label>Phone</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="ApplicationUser.PhoneNumber" type="text" class="form-control" />
-                                        <span asp-validation-for="ApplicationUser.PhoneNumber" class="text-danger"></span>
+                                        <input asp-for="ApplicationUser.PhoneNumber" required type="text" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -47,8 +43,7 @@
                                         <label>Email</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="ApplicationUser.Email" type="text" class="form-control" />
-                                        <span asp-validation-for="ApplicationUser.Email" class="text-danger"></span>
+                                        <input asp-for="ApplicationUser.Email" required type="text" class="form-control" />
                                     </div>
                                 </div>
                                 @if (User.IsInRole(ShoppingCart_Utility.WC.AdminRole))
@@ -168,10 +163,9 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
-
-<script src="https://js.braintreegateway.com/web/dropin/1.22.1/js/dropin.min.js"></script>
-<script>
-        var client_token = "@ViewBag.ClientToken";
+    <script src="https://js.braintreegateway.com/web/dropin/1.22.1/js/dropin.min.js"></script>
+    <script>
+      var client_token = "@ViewBag.ClientToken";
         var form = document.querySelector('#payment-form');
 
         braintree.dropin.create({
@@ -189,5 +183,41 @@
                                 });
                             });
         });
-</script>
-    }
+
+
+        function validateInput() {
+            var app_name = document.getElementById("ApplicationUser_FullName").value;
+            var app_phone = document.getElementById("ApplicationUser_PhoneNumber").value;
+            var app_email = document.getElementById("ApplicationUser_Email").value;
+
+            if (app_name.toString() == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter Full Name!'
+                })
+                return false;
+            }
+            if (app_phone.toString() == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter Phone Number!'
+                })
+                return false;
+            }
+            if (app_email.toString() == '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Please enter Email!'
+                })
+                return false;
+            }
+
+            return true;
+
+        }
+    </script>
+
+}
