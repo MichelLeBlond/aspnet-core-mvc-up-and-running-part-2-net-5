@@ -127,18 +127,18 @@
 
                                 @foreach (var detail in Model.OrderDetail)
                                 {
-                                <li class="list-group-item d-flex justify-content-between p-2">
-                                    <div class="row container">
-                                        <div class="col-8">
-                                            <h6 class="my-0 text-info">@detail.Product.Name</h6>
-                                            <small class="text-muted">Price : @detail.PricePerSqFt</small><br />
-                                            <small class="text-muted">Quantity : @detail.Sqft</small>
+                                    <li class="list-group-item d-flex justify-content-between p-2">
+                                        <div class="row container">
+                                            <div class="col-8">
+                                                <h6 class="my-0 text-info">@detail.Product.Name</h6>
+                                                <small class="text-muted">Price : @detail.PricePerSqFt</small><br />
+                                                <small class="text-muted">Quantity : @detail.Sqft</small>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="text-success">$@(detail.PricePerSqFt * detail.Sqft)</p>
+                                            </div>
                                         </div>
-                                        <div class="col-4">
-                                            <p class="text-success">$@(detail.PricePerSqFt * detail.Sqft)</p>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
                                 }
                                 <li class="list-group-item bg-info">
                                     <div class="row container">
@@ -154,19 +154,30 @@
 
 
                             <br />
+                            @if (Model.OrderHeader.OrderStatus == ShoppingCart_Utility.WC.StatusApproved)
+                            {
+                                <input type="submit" value="Start Processing"
+                                       formmethod="post" asp-action="StartProcessing"
+                                       class="btn btn-info form-control" />
+                            }
+                            @if (Model.OrderHeader.OrderStatus == ShoppingCart_Utility.WC.StatusInProcess)
+                            {
+                                <input type="submit" value="Ship Order"
+                                       formmethod="post" asp-action="ShipOrder"
+                                       class="btn btn-primary form-control" />
+                            }
 
-                            <input type="submit" value="Start Processing" class="btn btn-info form-control" />
-
-                            <input type="submit" value="Ship Order" class="btn btn-primary form-control" />
-
-
-                            <div class="pt-2">
-                                <button type="submit"
-                                        class="btn btn-danger form-control"
-                                        formmethod="post">
-                                    Cancel Order
-                                </button>
-                            </div>
+                            @if (Model.OrderHeader.OrderStatus != ShoppingCart_Utility.WC.StatusRefunded && Model.OrderHeader.OrderStatus != ShoppingCart_Utility.WC.StatusCancelled)
+                            {
+                        <div class="pt-2">
+                            <button type="submit"
+                                    class="btn btn-danger form-control"
+                                    asp-action="CancelOrder"
+                                    formmethod="post">
+                                Cancel Order
+                            </button>
+                                 </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -183,7 +194,7 @@
             if (shippingDate.value == "0001-01-01") {
                 shippingDate.value = "";
             }
-                  })
+        })
     </script>
 
 }

@@ -2,7 +2,7 @@
 @model ShoppingCart_Models.ViewModels.DetailsVM
 <div class="">
     <form method="post">
-        <input asp-for="@Model.Product.Id" hidden/>
+        <input asp-for="@Model.Product.Id" hidden />
         <div class="container backgroundWhite pt-4">
             <div class="card" style="border:1px solid #000000; ">
                 <div class="card-header bg-dark text-light ml-0 row container" style="border-radius: 0px;">
@@ -39,7 +39,7 @@
                                             }
                                             else
                                             {
-                                            <input asp-for="@Model.Product.TempSqFt"  class="form-control" />
+                                                <input asp-for="@Model.Product.TempSqFt" class="form-control" />
                                             }
                                             <span asp-validation-for="@Model.Product.TempSqFt" class="text-danger"></span>
                                         </div>
@@ -62,7 +62,7 @@
                             }
                             else
                             {
-                                <button type="submit"  asp-route-id="@Model.Product.Id" class="btn btn-info form-control btn-lg" style="height: 50px;">Add to Cart</button>
+                                <button type="submit" asp-route-id="@Model.Product.Id" class="btn btn-info form-control btn-lg" style="height: 50px;">Add to Cart</button>
                             }
                         </div>
                     </div>
@@ -72,3 +72,6 @@
     </form>
 </div>
 
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
