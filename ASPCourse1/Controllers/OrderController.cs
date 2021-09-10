@@ -95,6 +95,7 @@ namespace ShoppingCart.Controllers
         {
             OrderHeader orderHeader = _orderHRepo.FirstOrDefault(u => u.Id == OrderVM.OrderHeader.Id);
             orderHeader.OrderStatus = WC.StatusInProcess;
+            _orderHRepo.Update(orderHeader);
             _orderHRepo.Save();
             TempData[WC.Success] = "Order is In Process";
             return RedirectToAction(nameof(Index));
@@ -106,6 +107,7 @@ namespace ShoppingCart.Controllers
             OrderHeader orderHeader = _orderHRepo.FirstOrDefault(u => u.Id == OrderVM.OrderHeader.Id);
             orderHeader.OrderStatus = WC.StatusShipped;
             orderHeader.ShippingDate = DateTime.Now;
+            _orderHRepo.Update(orderHeader);
             _orderHRepo.Save();
             TempData[WC.Success] = "Order Shipped Successfully";
             return RedirectToAction(nameof(Index));
@@ -130,6 +132,7 @@ namespace ShoppingCart.Controllers
                 Result<Transaction> resultRefund = gateway.Transaction.Refund(orderHeader.TransactionId);
             }
             orderHeader.OrderStatus = WC.StatusRefunded;
+            _orderHRepo.Update(orderHeader);
             _orderHRepo.Save();
             TempData[WC.Success] = "Order Cancelled Successfully";
             return RedirectToAction(nameof(Index));
@@ -147,7 +150,7 @@ namespace ShoppingCart.Controllers
             orderHeaderFromDb.State = OrderVM.OrderHeader.State;
             orderHeaderFromDb.PostalCode = OrderVM.OrderHeader.PostalCode;
             orderHeaderFromDb.Email = OrderVM.OrderHeader.Email;
-
+            _orderHRepo.Update(orderHeaderFromDb);
             _orderHRepo.Save();
             TempData[WC.Success] = "Order Details Updated Successfully";
 

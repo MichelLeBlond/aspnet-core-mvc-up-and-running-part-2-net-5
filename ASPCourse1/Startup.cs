@@ -13,6 +13,7 @@ using ShoppingCart_DataAccess.Data;
 using ShoppingCart_DataAccess.Repository;
 using ShoppingCart_DataAccess.Repository.IRepository;
 using ShoppingCart_Utility.BrainTree;
+using ShoppingCart_DataAccess.Initializer;
 
 namespace ShoppingCart
 {
@@ -53,17 +54,19 @@ namespace ShoppingCart
             services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
             services.AddScoped<IOrderHeaderRepository, OrderHeaderRepository>();
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
-             services.AddAuthentication().AddFacebook(Options =>
+            services.AddScoped<IDbInitializer, DbInitializer>();
+            services.AddAuthentication().AddFacebook(Options =>
           {
               Options.AppId = "";
               Options.AppSecret = "";
+
           }); 
 
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -82,6 +85,7 @@ namespace ShoppingCart
             app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
+            dbInitializer.Initialize();
 
 
             app.UseEndpoints(endpoints =>
