@@ -217,6 +217,48 @@
                 })
                 return false;
             }
+            // admin extra fields
+            if (client_token !== "") {
+                var app_streetaddress = document.getElementById("ApplicationUser_StreetAddress").value;
+                var app_city = document.getElementById("ApplicationUser_City").value;
+                var app_state = document.getElementById("ApplicationUser_State").value;
+                var app_postalcode = document.getElementById("ApplicationUser_PostalCode").value;
+
+                if (app_streetaddress.toString() == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please enter an address!'
+                    })
+                    return false;
+                }
+                if (app_city.toString() == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please enter the city!'
+                    })
+                    return false;
+                }
+                if (app_state.toString() == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please enter the state!'
+                    })
+                    return false;
+                }
+
+                if (app_postalcode.toString() == '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please enter the postal code or zip!'
+                    })
+                    return false;
+                }
+
+            }
 
             return true;
 

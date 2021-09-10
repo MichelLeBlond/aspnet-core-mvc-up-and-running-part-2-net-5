@@ -38,6 +38,7 @@ namespace ShoppingCart.Controllers
             {
                 _appTypeRepo.Add(obj);
                 _appTypeRepo.Save();
+                TempData[WC.Success] = "Application Type is created";
                 return RedirectToAction("Index");
             }
 
@@ -68,6 +69,7 @@ namespace ShoppingCart.Controllers
             {
                 _appTypeRepo.Update(obj);
                 _appTypeRepo.Save();
+                TempData[WC.Success] = "Application Type is updated";
                 return RedirectToAction("Index");
             }
 
@@ -104,6 +106,7 @@ namespace ShoppingCart.Controllers
 
             _appTypeRepo.Remove(obj);
             _appTypeRepo.Save();
+            TempData[WC.Success] = "Application Type is removed";
             return RedirectToAction("Index");
 
         }

@@ -41,7 +41,7 @@ namespace ShoppingCart_Utility
                         {
                             "From",
                             new JObject {
-                                {"Email", "sidbird83@gmail.com"},
+                                {"Email", "info@hypersonicdrones.net"},
                                 {"Name", "Michel"}
                             }
                         }, {

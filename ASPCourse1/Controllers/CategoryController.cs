@@ -68,6 +68,7 @@ namespace ShoppingCart.Controllers
             {
                 _catRepo.Update(obj);
                 _catRepo.Save();
+                TempData[WC.Success] = "Category is updated";
                 return RedirectToAction("Index");
             }
 
@@ -104,6 +105,7 @@ namespace ShoppingCart.Controllers
 
             _catRepo.Remove(obj);
             _catRepo.Save();
+            TempData[WC.Success] = "Category is removed";
             return RedirectToAction("Index");
 
         }

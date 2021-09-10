@@ -121,14 +121,13 @@ namespace ShoppingCart.Controllers
                     _prodRepo.Update(productVM.Product);
 
                 }
-
+                TempData[WC.Success] = "Product is updated";
                 _prodRepo.Save();
                 return RedirectToAction("Index");
             }
 
             productVM.CategorySelectList = _prodRepo.GetAllDropdownList(WC.CategoryName);
             productVM.ApplicationTypeSelectList = _prodRepo.GetAllDropdownList(WC.ApplicationTypeName);
-
             return View(productVM);
         }
 
@@ -171,6 +170,7 @@ namespace ShoppingCart.Controllers
 
             _prodRepo.Remove(obj);
             _prodRepo.Save();
+            TempData[WC.Success] = "Product is removed";
             return RedirectToAction("Index");
         }
     }
